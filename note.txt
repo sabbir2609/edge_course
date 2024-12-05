@@ -1,4 +1,0 @@
-Bubble sort : 
-1. Get the len of the arr
-2. Start a loop with the range len
-3. 
