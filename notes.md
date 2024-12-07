@@ -254,23 +254,23 @@ By following a comprehensive data sanitization strategy, organizations can mitig
 
 ---
 # Performing preprocessing on the data
-- 1. Importing the necessary libraries
-- 2. Loading the data
-- 3. Checking for missing values
-- 4. Checking for duplicates
-- 5. Checking for the data types
-- 6. Checking for the unique values in the columns
-- 7. Checking for the distribution of the target variable
-- 8. Checking for the correlation between the features
-- 9. Checking for the outliers
-- 10. Performing the feature engineering
-- 11. Splitting the data into train and test
-- 12. Performing the feature scaling
-- 13. Performing the feature selection
-- 14. Performing the model building
-- 15. Performing the model evaluation
-- 16. Performing the model tuning
-- 17. Performing the model deployment
+1. Importing the necessary libraries
+2. Loading the data
+3. Checking for missing values
+4. Checking for duplicates
+5. Checking for the data types
+6. Checking for the unique values in the columns
+7. Checking for the distribution of the target variable
+8. Checking for the correlation between the features
+9. Checking for the outliers
+10. Performing the feature engineering
+11. Splitting the data into train and test
+12. Performing the feature scaling
+13. Performing the feature selection
+14. Performing the model building
+15. Performing the model evaluation
+16. Performing the model tuning
+17. Performing the model deployment
 
 ---
 # What imputer does in data preprocessing?
