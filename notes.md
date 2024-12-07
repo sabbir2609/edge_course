@@ -271,3 +271,23 @@ By following a comprehensive data sanitization strategy, organizations can mitig
 - 15. Performing the model evaluation
 - 16. Performing the model tuning
 - 17. Performing the model deployment
+
+---
+# What imputer does in data preprocessing?
+An imputer is a class that is used to replace missing values in the data. It is used to handle missing data in a dataset by filling the missing values with a specific strategy. The imputer class provides different strategies to fill the missing values, such as mean, median, mode, or a constant value. It helps in preprocessing the data before building a machine learning model by handling missing values effectively.
+
+### Example:
+```python
+from sklearn.impute import SimpleImputer
+```
+This code imports the `SimpleImputer` class from the `sklearn.impute` module. The `SimpleImputer` class is used to replace missing values in the data with a specified strategy.
+
+### Usage:
+```python
+imputer = SimpleImputer(strategy='mean')
+imputed_data = imputer.fit_transform(data)
+```
+In this code snippet:
+- An instance of the `SimpleImputer` class is created with the strategy set to `'mean'`.
+
+---
