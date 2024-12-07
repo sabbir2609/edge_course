@@ -188,3 +188,9 @@ This regex pattern matches email addresses in the following format:
 - `name.lastname@domain.io`
 
 This pattern does not match every possible email format defined by the full email specification (RFC 5322), but it works for common email formats used in practice.
+
+## Corelation and covariance
+- **Covariance** is a measure of how changes in one variable are associated with changes in a second variable.
+- **Correlation** is a standardized measure of covariance that ranges from -1 to 1. It provides insights into the direction and strength of the relationship between two variables.
+
+---
