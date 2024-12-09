@@ -291,3 +291,117 @@ In this code snippet:
 - An instance of the `SimpleImputer` class is created with the strategy set to `'mean'`.
 
 ---
+
+# Outlier Removal Using Standard Deviation
+
+### What is an "outlier"?
+An **outlier** is a data point that is very different from the rest of the points. It's like a student who has a much higher or lower score than everyone else in a class. Outliers can mess up the learning process of a machine learning model, so we often try to remove them to make the model work better.
+
+### The function `remove_outlier(data, threshold=2)`:
+This function helps remove outliers from the data using a method based on **standard deviation** (how spread out the data is).
+
+1. **Calculate the mean (average) of the data**:
+   ```python
+   mean = np.mean(data, axis=0)
+   ```
+   This calculates the average value of each feature (column) in your data.
+
+2. **Calculate the standard deviation of the data**:
+   ```python
+   std = np.std(data, axis=0)
+   ```
+   This measures how spread out each feature is. If the standard deviation is large, it means the data is spread out a lot.
+
+3. **Check if a data point is an outlier**:
+   ```python
+   outliers = np.abs((data - mean) / std) > threshold
+   ```
+   - This line checks for outliers. It calculates how far each data point is from the mean in terms of standard deviations. 
+   - If a data point is more than `threshold` standard deviations away from the mean, it's considered an outlier.
+   - The `np.abs()` part ensures you check the distance regardless of whether the value is above or below the mean.
+
+4. **Remove the outliers**:
+   ```python
+   return data[~outliers.any(axis=1)]
+   ```
+   - This line removes the outliers.
+   - `~outliers.any(axis=1)` means "select the rows (data points) where there is no outlier in any column". In other words, if any column in a row has an outlier, the whole row gets removed.
+
+### Explanation of `X_cleaned` and `y_cleaned`:
+
+- **`X_cleaned = remove_outlier(X)`**:
+  - This applies the `remove_outlier()` function to your data `X` (which represents the features) and removes the outliers from `X`. The cleaned data is stored in `X_cleaned`.
+
+- **`y_cleaned = y[~np.any(np.abs((X - np.mean(X, axis=0)) / np.std(X, axis=0)) > 2, axis=1)]`**:
+  - This is cleaning the target variable `y` (which contains the labels or outcomes).
+  - It removes the corresponding labels from `y` where the **feature data** `X` has outliers.
+  - This ensures that if you remove a data point from `X` because it's an outlier, you also remove the corresponding target value in `y`.
+
+### In simpler terms:
+
+1. **Outlier removal**: We check if a data point is "too different" from the others (using standard deviations). If it is, we remove it.
+2. **Cleaning `X`**: We remove outliers from the features (the input data).
+3. **Cleaning `y`**: We also remove the labels in `y` that match those outliers, so that the cleaned data stays aligned.
+
+In short, this code helps to **remove the "weird" data points** that might mess up the analysis or model training.
+
+## Explanation of `np.any(np.abs((X - np.mean(X, axis=0)) / np.std(X, axis=0)) > 2, axis=1)`
+
+### Code:
+```python
+y_cleaned = y[~np.any(np.abs((X - np.mean(X, axis=0)) / np.std(X, axis=0)) > 2, axis=1)]
+```
+
+This line is cleaning the target variable `y` by removing the labels corresponding to data points that are outliers in the feature set `X`. Here's how it works:
+
+### 1. **Finding outliers in `X`**:
+```python
+np.abs((X - np.mean(X, axis=0)) / np.std(X, axis=0)) > 2
+```
+This part of the code checks for outliers in the **feature matrix `X`** (the data used to predict the target `y`). 
+
+#### Step-by-step explanation:
+- **`np.mean(X, axis=0)`**: 
+  - This calculates the **mean** (average) of each column (feature) in the matrix `X`. 
+  - If `X` has multiple features (e.g., height, weight, age), it calculates the mean for each of these features separately.
+
+- **`np.std(X, axis=0)`**:
+  - This calculates the **standard deviation** of each column in `X`. The standard deviation tells us how spread out the values of each feature are. 
+  - A high standard deviation means the data is spread out a lot, and a low standard deviation means the data is concentrated around the mean.
+
+- **`(X - np.mean(X, axis=0)) / np.std(X, axis=0)`**:
+  - This **standardizes** the data. It means subtracting the mean and dividing by the standard deviation for each feature, so that each feature has a mean of 0 and a standard deviation of 1.
+  - This is essentially converting each feature into "how many standard deviations away" the data points are from the mean.
+
+- **`np.abs(... > 2)`**:
+  - This checks if the **absolute value** of the standardized data points is greater than 2. 
+  - If a data point is more than 2 standard deviations away from the mean, it is considered an **outlier** (this is a common threshold).
+  - `np.abs()` ensures we're checking the distance regardless of whether the data point is above or below the mean.
+
+- **`np.any(..., axis=1)`**:
+  - This checks if any of the features for a given data point (row in `X`) are outliers (i.e., if any value in that row is greater than 2 standard deviations away from the mean).
+  - `axis=1` means the check is done **across columns (features)** for each row (data point).
+  - It returns `True` for any row that has at least one feature that is an outlier.
+
+### 2. **Excluding the outliers from `y`**:
+```python
+y[~np.any(..., axis=1)]
+```
+- **`~np.any(..., axis=1)`**: 
+  - The tilde `~` is a **negation** operator. So, it flips the result.
+  - It converts `True` (outliers) into `False`, and `False` (non-outliers) into `True`.
+  - This means **we are keeping the rows (data points) that are NOT outliers** in `X`.
+
+- **`y[...]`**:
+  - This uses the **Boolean mask** (from the previous step) to **select only the labels in `y`** that correspond to the rows (data points) in `X` that are not outliers.
+  - The `y_cleaned` will now only contain the target values that correspond to **non-outliers** in the feature data `X`.
+
+### In simpler terms:
+
+- **Step 1**: Find out which rows in `X` have outliers (where any feature is more than 2 standard deviations away from the mean).
+- **Step 2**: Remove the rows (data points) in `y` that correspond to these outliers, so that `y_cleaned` only contains the target labels for the "good" data points in `X`.
+
+### Example:
+If `X` represents features like age, height, and weight, and `y` is the target variable (like "score" or "label"), this code ensures that if a data point has any feature value that is an outlier (e.g., a very unusual age or height), the corresponding target value in `y` is also removed.
+
+**In summary**: The line ensures that both the feature data `X` and the target data `y` are "aligned" by removing rows where any feature is an outlier, keeping only the data points with valid (non-outlier) values.
