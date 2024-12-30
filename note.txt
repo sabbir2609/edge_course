@@ -3,3 +3,5 @@ Preprocessing a dataset using numpy operations:
 Dataset contain information about different species of iris flowers. 
 
 Preprocessing steps include: Cleaning, normalization, encoding categorical variables and feature scaling using numpy operations.
+
+https://prod.liveshare.vsengsaas.visualstudio.com/join?1D09DC487D72D4384605A91524B6EF03E3DE
