@@ -7,3 +7,7 @@ Preprocessing steps include: Cleaning, normalization, encoding categorical varia
 https://prod.liveshare.vsengsaas.visualstudio.com/join?3679105E9E6127668DE2A544FD8FB54BEC08
 
 https://sci-hub.se/https://doi.org/10.1016/j.jpcs.2006.11.028
+https://www.sciencedirect.com/science/article/pii/S0272884220309378
+https://sci-hub.se/https://doi.org/10.1063/1.3095498
+
+https://academic.oup.com/evlett/article/8/3/361/7585828#479777572
